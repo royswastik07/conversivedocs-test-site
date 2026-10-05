@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Reference – NovaDocs</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 860px; margin: 40px auto; padding: 0 20px; color: #222; line-height: 1.6; }
+    nav a { margin-right: 16px; text-decoration: none; color: #0070f3; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+    pre { background: #1e1e2e; color: #cdd6f4; padding: 16px; border-radius: 8px; overflow-x: auto; font-size: 0.9em; }
+    .method { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 700; margin-right: 8px; }
+    .get { background: #dcfce7; color: #166534; }
+    .post { background: #dbeafe; color: #1e40af; }
+    .delete { background: #fee2e2; color: #991b1b; }
+    footer { margin-top: 60px; font-size: 0.85rem; color: #888; border-top: 1px solid #eee; padding-top: 12px; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/about.html">About</a>
+    <a href="/features.html">Features</a>
+    <a href="/pricing.html">Pricing</a>
+    <a href="/docs/index.html">Docs</a>
+    <a href="/blog/index.html">Blog</a>
+  </nav>
+
+  <h1>API Reference</h1>
+  <p>Base URL: <code>https://api.novadocs.example.com/v1</code>. All requests require an <code>Authorization: Bearer &lt;token&gt;</code> header.</p>
+
+  <h2>Authentication</h2>
+  <p>Generate an API token in <strong>Settings → API Tokens</strong>. Tokens are workspace-scoped and can be restricted to read-only.</p>
+
+  <h2>Endpoints</h2>
+
+  <h3><span class="method get">GET</span> /spaces</h3>
+  <p>Returns all spaces the authenticated user can access.</p>
+  <pre>curl https://api.novadocs.example.com/v1/spaces \
+  -H "Authorization: Bearer $TOKEN"</pre>
+
+  <h3><span class="method get">GET</span> /spaces/:id/documents</h3>
+  <p>Lists all documents in a space. Supports pagination via <code>?page=</code> and <code>?per_page=</code>.</p>
+
+  <h3><span class="method post">POST</span> /spaces/:id/documents</h3>
+  <p>Creates a new document. Body: <code>{"title": "string", "content": "markdown string"}</code></p>
+
+  <h3><span class="method get">GET</span> /documents/:id</h3>
+  <p>Returns a single document including its full content and metadata.</p>
+
+  <h3><span class="method delete">DELETE</span> /documents/:id</h3>
+  <p>Permanently deletes a document. This cannot be undone.</p>
+
+  <h2>Rate limits</h2>
+  <p>The API is rate-limited to <strong>1,000 requests per minute</strong> per workspace. The response headers include <code>X-RateLimit-Remaining</code> and <code>X-RateLimit-Reset</code>.</p>
+
+  <footer>NovaDocs Help Center · Test site for URL Update feature validation</footer>
+</body>
+</html>
