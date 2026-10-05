@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>API Reference – NovaDocs</title>
+  <title>API Reference – ConversiveDocs</title>
   <style>
     body { font-family: system-ui, sans-serif; max-width: 860px; margin: 40px auto; padding: 0 20px; color: #222; line-height: 1.6; }
     nav a { margin-right: 16px; text-decoration: none; color: #0070f3; }
@@ -27,7 +27,7 @@
   </nav>
 
   <h1>API Reference</h1>
-  <p>Base URL: <code>https://api.novadocs.example.com/v1</code>. All requests require an <code>Authorization: Bearer &lt;token&gt;</code> header.</p>
+  <p>Base URL: <code>https://api.ConversiveDocs.example.com/v1</code>. All requests require an <code>Authorization: Bearer &lt;token&gt;</code> header.</p>
 
   <h2>Authentication</h2>
   <p>Generate an API token in <strong>Settings → API Tokens</strong>. Tokens are workspace-scoped and can be restricted to read-only.</p>
@@ -36,7 +36,7 @@
 
   <h3><span class="method get">GET</span> /spaces</h3>
   <p>Returns all spaces the authenticated user can access.</p>
-  <pre>curl https://api.novadocs.example.com/v1/spaces \
+  <pre>curl https://api.ConversiveDocs.example.com/v1/spaces \
   -H "Authorization: Bearer $TOKEN"</pre>
 
   <h3><span class="method get">GET</span> /spaces/:id/documents</h3>
@@ -54,6 +54,6 @@
   <h2>Rate limits</h2>
   <p>The API is rate-limited to <strong>1,000 requests per minute</strong> per workspace. The response headers include <code>X-RateLimit-Remaining</code> and <code>X-RateLimit-Reset</code>.</p>
 
-  <footer>NovaDocs Help Center · Test site for URL Update feature validation</footer>
+  <footer>ConversiveDocs Help Center · Test site for URL Update feature validation</footer>
 </body>
 </html>

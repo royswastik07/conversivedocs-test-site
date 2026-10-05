@@ -1,4 +1,4 @@
-# NovaDocs Test Site
+# ConversiveDocs Test Site
 
 A static site hosted on Vercel for testing the **URL Update** feature in the AI Agent Configurator Knowledge tab.
 
@@ -10,7 +10,7 @@ cd test-website
 vercel --prod
 ```
 
-Copy the deployed URL (e.g. `https://novadocs-test.vercel.app`) and add it to the Knowledge tab with **crawl depth 2**.
+Copy the deployed URL (e.g. `https://ConversiveDocs-test.vercel.app`) and add it to the Knowledge tab with **crawl depth 2**.
 
 ---
 
