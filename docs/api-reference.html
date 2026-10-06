@@ -13,6 +13,10 @@
     .get { background: #dcfce7; color: #166534; }
     .post { background: #dbeafe; color: #1e40af; }
     .delete { background: #fee2e2; color: #991b1b; }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0 24px; font-size: 0.9rem; }
+    th { background: #f3f4f6; padding: 9px 12px; text-align: left; font-weight: 600; }
+    td { padding: 9px 12px; border-bottom: 1px solid #e5e7eb; }
+    tr:last-child td { border-bottom: none; }
     footer { margin-top: 60px; font-size: 0.85rem; color: #888; border-top: 1px solid #eee; padding-top: 12px; }
   </style>
 </head>
@@ -50,6 +54,52 @@
 
   <h3><span class="method delete">DELETE</span> /documents/:id</h3>
   <p>Permanently deletes a document. This cannot be undone.</p>
+
+  <h2>Request parameters</h2>
+  <table>
+    <thead>
+      <tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>title</code></td><td>string</td><td>Yes</td><td>Document title. Max 255 characters.</td></tr>
+      <tr><td><code>content</code></td><td>string</td><td>Yes</td><td>Document body in Markdown format.</td></tr>
+      <tr><td><code>space_id</code></td><td>string</td><td>Yes</td><td>The ID of the space to create the document in.</td></tr>
+      <tr><td><code>parent_id</code></td><td>string</td><td>No</td><td>ID of a parent document (for nested docs).</td></tr>
+      <tr><td><code>tags</code></td><td>string[]</td><td>No</td><td>Array of tag strings. Max 10 tags per document.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Response fields</h2>
+  <table>
+    <thead>
+      <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>id</code></td><td>string</td><td>Unique document identifier (UUID).</td></tr>
+      <tr><td><code>title</code></td><td>string</td><td>Document title.</td></tr>
+      <tr><td><code>content</code></td><td>string</td><td>Document body in Markdown.</td></tr>
+      <tr><td><code>space_id</code></td><td>string</td><td>ID of the containing space.</td></tr>
+      <tr><td><code>author_id</code></td><td>string</td><td>User ID of the document creator.</td></tr>
+      <tr><td><code>created_at</code></td><td>ISO 8601</td><td>Timestamp when the document was created.</td></tr>
+      <tr><td><code>updated_at</code></td><td>ISO 8601</td><td>Timestamp of the last edit.</td></tr>
+      <tr><td><code>summary</code></td><td>string</td><td>AI-generated summary (Pro/Enterprise only).</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Error codes</h2>
+  <table>
+    <thead>
+      <tr><th>Code</th><th>HTTP Status</th><th>Meaning</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>unauthorized</code></td><td>401</td><td>Missing or invalid API token.</td></tr>
+      <tr><td><code>forbidden</code></td><td>403</td><td>Token does not have access to this resource.</td></tr>
+      <tr><td><code>not_found</code></td><td>404</td><td>Document or space does not exist.</td></tr>
+      <tr><td><code>validation_error</code></td><td>422</td><td>Request body failed validation. Check <code>errors</code> array.</td></tr>
+      <tr><td><code>rate_limited</code></td><td>429</td><td>Too many requests. Wait for <code>X-RateLimit-Reset</code>.</td></tr>
+      <tr><td><code>server_error</code></td><td>500</td><td>Internal error. Contact support if it persists.</td></tr>
+    </tbody>
+  </table>
 
   <h2>Rate limits</h2>
   <p>The API is rate-limited to <strong>1,000 requests per minute</strong> per workspace. The response headers include <code>X-RateLimit-Remaining</code> and <code>X-RateLimit-Reset</code>.</p>
