@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Troubleshooting – ConversiveDocs</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 860px; margin: 40px auto; padding: 0 20px; color: #222; line-height: 1.6; }
+    nav a { margin-right: 16px; text-decoration: none; color: #0070f3; }
+    .issue { border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px; margin: 20px 0; }
+    .issue h2 { margin-top: 0; font-size: 1.1rem; }
+    .tag { display: inline-block; background: #fee2e2; color: #991b1b; font-size: 0.75rem; font-weight: 600; padding: 2px 8px; border-radius: 4px; margin-bottom: 10px; }
+    .tag.warn { background: #fef3c7; color: #92400e; }
+    .tag.info { background: #dbeafe; color: #1e40af; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.9rem; }
+    th { background: #f3f4f6; padding: 9px 12px; text-align: left; font-weight: 600; }
+    td { padding: 9px 12px; border-bottom: 1px solid #e5e7eb; }
+    tr:last-child td { border-bottom: none; }
+    footer { margin-top: 60px; font-size: 0.85rem; color: #888; border-top: 1px solid #eee; padding-top: 12px; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/about.html">About</a>
+    <a href="/features.html">Features</a>
+    <a href="/pricing.html">Pricing</a>
+    <a href="/docs/index.html">Docs</a>
+    <a href="/blog/index.html">Blog</a>
+  </nav>
+
+  <h1>Troubleshooting</h1>
+  <p>Common issues and how to fix them. If your issue isn't listed here, contact <strong>support@conversive.ai</strong>.</p>
+
+  <!-- TEST MARKER: new_page — added to test the URL Update page-addition scenario -->
+
+  <div class="issue">
+    <span class="tag">Login</span>
+    <h2>I can't log in — the page keeps redirecting</h2>
+    <p>This is usually caused by a stale session cookie. Fix it in three steps:</p>
+    <ol>
+      <li>Clear cookies for <code>app.conversive.ai</code> in your browser settings.</li>
+      <li>Open a private/incognito window and try logging in again.</li>
+      <li>If SSO is enabled for your workspace, confirm your identity provider session hasn't expired.</li>
+    </ol>
+  </div>
+
+  <div class="issue">
+    <span class="tag warn">Search</span>
+    <h2>Search returns no results even though the document exists</h2>
+    <p>New documents take up to 60 seconds to be indexed after they are saved. If the document is older than that:</p>
+    <ul>
+      <li>Check that you have at least <strong>Viewer</strong> access to the space the document is in.</li>
+      <li>Try searching by the exact title in quotes, e.g. <code>"Q3 Roadmap"</code>.</li>
+      <li>If the document was recently imported, re-index it from <strong>Settings → Import → Re-index</strong>.</li>
+    </ul>
+  </div>
+
+  <div class="issue">
+    <span class="tag warn">Integrations</span>
+    <h2>Slack notifications stopped arriving</h2>
+    <p>Slack notifications fail when the OAuth token expires or is revoked. Go to <strong>Settings → Integrations → Slack</strong> and click <strong>Reconnect</strong>. If the workspace admin revoked the app, they will need to re-approve it in Slack's App Management.</p>
+  </div>
+
+  <div class="issue">
+    <span class="tag">API</span>
+    <h2>API requests return 401 even with a valid token</h2>
+    <p>Check these in order:</p>
+    <ol>
+      <li>The token must be sent as <code>Authorization: Bearer &lt;token&gt;</code> — not as a query param.</li>
+      <li>Tokens are workspace-scoped. Confirm the token was generated in the same workspace as the resource.</li>
+      <li>Read-only tokens cannot write. Generate a read-write token from <strong>Settings → API Tokens</strong>.</li>
+    </ol>
+  </div>
+
+  <div class="issue">
+    <span class="tag info">Performance</span>
+    <h2>The editor is slow when a document is very long</h2>
+    <p>Documents over 50,000 words may render slowly in the full editor. Workarounds:</p>
+    <ul>
+      <li>Split the document into sections using the <strong>Split Document</strong> option in the ⋯ menu.</li>
+      <li>Use <strong>Outline view</strong> (View → Outline) to navigate without rendering the full body.</li>
+      <li>Disable real-time collaborators' cursors from <strong>View → Hide Collaborators</strong> to reduce re-renders.</li>
+    </ul>
+  </div>
+
+  <h2>Error code reference</h2>
+  <table>
+    <thead>
+      <tr><th>Error</th><th>Likely cause</th><th>Fix</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>SESSION_EXPIRED</code></td><td>Idle for more than 8 hours</td><td>Log in again</td></tr>
+      <tr><td><code>SPACE_NOT_FOUND</code></td><td>Space was deleted or access revoked</td><td>Ask a workspace admin to check</td></tr>
+      <tr><td><code>IMPORT_FAILED</code></td><td>Source file format not supported</td><td>Export as Markdown and re-import</td></tr>
+      <tr><td><code>RATE_LIMITED</code></td><td>Over 1,000 API requests per minute</td><td>Add backoff and retry logic</td></tr>
+      <tr><td><code>STORAGE_FULL</code></td><td>Plan storage limit reached</td><td>Upgrade plan or delete unused files</td></tr>
+    </tbody>
+  </table>
+
+  <footer>ConversiveDocs Help Center · Test site for URL Update feature validation</footer>
+</body>
+</html>
